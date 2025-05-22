@@ -1,0 +1,118 @@
+﻿<UserControl
+    x:Class="StickyAlerts.Views.AlertsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:StickyAlerts.Views"
+    xmlns:core="clr-namespace:StickyAlerts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:StickyAlerts.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:AlertsViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="AlertListTemplate" DataType="{x:Type viewmodels:AlertViewModel}">
+            <hc:Card Name="AlertCard" Margin="5,5,5,0">
+                <hc:SimpleStackPanel>
+                    <!--  标题  -->
+                    <TextBox
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Right"
+                        Style="{DynamicResource UnderlineTextBoxStyle}"
+                        Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!--  主题  -->
+                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="主题" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <ComboBox
+                            Width="120"
+                            IsEditable="True"
+                            ItemsSource="{x:Static core:ThemeManager.ThemeList}"
+                            Text="{Binding Theme, UpdateSourceTrigger=PropertyChanged}"
+                            core:TextBoxMaxLengthBehavior.MaxLength="5"
+                            LostFocus="ComboBox_Theme_LostFocus"
+                            KeyDown="ComboBox_Theme_KeyDown" />
+                        <Button Content="添加备注" Margin="5,0,0,0" Click="AddRemarkButton_Click" />
+                    </StackPanel>
+
+                    <!--  日期选择和按钮组  -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <hc:DateTimePicker
+                            Height="30"
+                            Margin="5"
+                            Background="{DynamicResource TertiarySmokeBackgroundBrush}"
+                            Cursor="Hand"
+                            Foreground="{DynamicResource TertiaryForegroundBrush}"
+                            SelectedDateTime="{Binding Deadline}" />
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <ToggleButton
+                                Margin="5,0,5,0"
+                                Content="展示"
+                                Cursor="Hand"
+                                IsChecked="{Binding AlertVisible}"
+                                Style="{DynamicResource ToggleButtonSwitch.Small}" />
+                            <Button
+                                Width="30"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                BorderThickness="0"
+                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                CommandParameter="{Binding Id}"
+                                Content="&#xE74D;"
+                                Cursor="Hand"
+                                FontFamily="Segoe Fluent Icons"
+                                Style="{DynamicResource ButtonDanger.Small}" />
+                        </StackPanel>
+                    </Grid>
+                </hc:SimpleStackPanel>
+            </hc:Card>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
+            <hc:ScrollViewer>
+                <hc:SimpleStackPanel>
+                    <Expander
+                        hc:BorderElement.CornerRadius="0"
+                        BorderThickness="0,0,0,1"
+                        Cursor="Hand"
+                        IsExpanded="True">
+                        <Expander.Header>
+                            <TextBlock Text="{Binding ActivedAlerts.Count, StringFormat={}进行中（共 {0} 个）}" />
+                        </Expander.Header>
+                        <ItemsControl
+                            BorderThickness="0"
+                            ItemTemplate="{DynamicResource AlertListTemplate}"
+                            ItemsSource="{Binding ActivedAlerts}"
+                            ScrollViewer.CanContentScroll="False"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Expander>
+                    <Expander
+                        hc:BorderElement.CornerRadius="0"
+                        BorderThickness="0,0,0,1"
+                        Cursor="Hand"
+                        IsExpanded="False">
+                        <Expander.Header>
+                            <TextBlock Text="{Binding UnactivedAlerts.Count, StringFormat={}已到期（共 {0} 个）}" />
+                        </Expander.Header>
+                        <ItemsControl
+                            BorderThickness="0"
+                            ItemTemplate="{DynamicResource AlertListTemplate}"
+                            ItemsSource="{Binding UnactivedAlerts}"
+                            ScrollViewer.CanContentScroll="False"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Expander>
+                </hc:SimpleStackPanel>
+            </hc:ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+{
+  "Logging": {},
+  "UserSettings": {
+    "Language": "zh-CN",
+    "Theme": "Light",
+    "Topmost": true,
+    "HorizontalSpacing": 30,
+    "VerticalSpacing": 30,
+    "AutoStart": true,
+    "HideShell": false,
+    "ShowTrayIcon": true,
+    "AlertsPath": "C:\\Users\\RadioNoise\\OneDrive\\\u4FBF\u7B3A\\Alerts.json"
+  }
+}
