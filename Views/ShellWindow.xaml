@@ -57,10 +57,17 @@
                 TransitionMode="Fade"
                 Visibility="{Binding IsSettingsVisible, Converter={StaticResource Boolean2VisibilityReConverter}}">
                 <StackPanel Orientation="Horizontal">
-                    <Button
-                        Command="{Binding AddAlertCommand}"
+                    <Button x:Name="AddMenuButton"
                         Content="&#xE948;"
-                        Style="{StaticResource ControlButtonStyle}" />
+                        Style="{StaticResource ControlButtonStyle}"
+                        Click="AddMenuButton_Click">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="添加新便签" Command="{Binding AddAlertCommand}" />
+                                <MenuItem Header="导入作业为便签" Click="ImportHomeworkMenu_Click" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
                     <Button
                         Command="{Binding SwitchToSettingsViewCommand}"
                         Content="&#xE713;"

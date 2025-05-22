@@ -39,5 +39,22 @@ namespace StickyAlerts.Views
         {
             App.Current.Shutdown();
         }
+
+        private void ImportHomeworkMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ImportHomeworkDialog();
+            dialog.Owner = this;
+            dialog.ShowDialog();
+        }
+
+        private void AddMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as System.Windows.Controls.Button;
+            if (button?.ContextMenu != null)
+            {
+                button.ContextMenu.PlacementTarget = button;
+                button.ContextMenu.IsOpen = true;
+            }
+        }
     }
 }

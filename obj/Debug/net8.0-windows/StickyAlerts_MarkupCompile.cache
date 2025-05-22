@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\App.xaml
-7-1992984751
+81808492537
 
-29-976544209
+30486112587
 227-1132146276
-Themes\Generic.xaml;Views\AlertsView.xaml;Views\AlertWindow.xaml;Views\LoginWindow.xaml;Views\RemarkDialog.xaml;Views\SettingsView.xaml;Views\ShellWindow.xaml;
+Themes\Generic.xaml;Views\AlertsView.xaml;Views\AlertWindow.xaml;Views\ImportHomeworkDialog.xaml;Views\LoginWindow.xaml;Views\RemarkDialog.xaml;Views\SettingsView.xaml;Views\ShellWindow.xaml;
 
 False
 

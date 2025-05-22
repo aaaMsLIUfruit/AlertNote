@@ -63,3 +63,6 @@ C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\ob
 C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\Views\LoginWindow.baml
 C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\Views\RemarkDialog.baml
 C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\Views\RemarkDialog.g.cs
+C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\Views\ImportHomeworkDialog.baml
+C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\Views\ImportHomeworkDialog.g.cs
+C:\Users\Zijun Liu\Downloads\StickyAlerts-main\StickyAlerts-main\StickyAlerts\obj\Debug\net8.0-windows\StickyAlerts.sourcelink.json

@@ -60,7 +60,7 @@ namespace StickyAlerts.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/StickyAlerts;component/views/remarkdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/StickyAlerts;V1.0.0.0;component/views/remarkdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\RemarkDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
