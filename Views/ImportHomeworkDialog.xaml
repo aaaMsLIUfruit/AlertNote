@@ -1,33 +1,22 @@
 <Window x:Class="StickyAlerts.Views.ImportHomeworkDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="导入作业" Height="350" Width="350" WindowStartupLocation="CenterOwner" Background="DimGray">
-    <Grid Margin="20">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StickyAlerts.Views"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="登录" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,10">
-            <TextBlock Text="学号/工号："  Foreground="White" />
-            <TextBox x:Name="UsernameBox" Width="200"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" Grid.Row="0">
+            <Button Content="读取作业" Padding="10,5" Click="ImportHomework_Click"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,0,0,10">
-            <TextBlock Text="密码：" Foreground="White"/>
-            <PasswordBox x:Name="PasswordBox" Width="200"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="验证码：" Foreground="White"/>
-                <TextBox x:Name="CaptchaBox" Width="80"/>
-            </StackPanel>
-            <Image x:Name="CaptchaImage" Width="80" Height="32" Margin="10,0,0,0"/>
-            <Button Content="刷新" Width="50" Margin="10,0,0,0" Click="RefreshCaptcha_Click"/>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="登录并导入" Width="100" Margin="0,0,10,0" Click="LoginAndImport_Click"/>
-            <Button Content="取消" Width="80" Click="Cancel_Click"/>
-        </StackPanel>
+        <wv2:WebView2 x:Name="webView" Margin="10" Grid.Row="1" />
     </Grid>
-</Window> 
+</Window>

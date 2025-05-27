@@ -149,7 +149,7 @@ namespace StickyAlerts.Services
             });
             Alerts.Add(vm);
             SortByDeadlineAndActiveState(Alerts);
-            // AddAlertWindow(vm); // 不再自动弹窗
+            AddAlertWindow(vm);
             Save();
             Align();
         }

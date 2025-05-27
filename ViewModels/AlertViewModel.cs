@@ -112,9 +112,9 @@ namespace StickyAlerts.ViewModels
                 MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
-            {
-                var alertService = App.Host.Services.GetRequiredService<IAlertService>();
-                alertService.Delete(Id);
+        {
+            var alertService = App.Host.Services.GetRequiredService<IAlertService>();
+            alertService.Delete(Id);
             }
         }
 

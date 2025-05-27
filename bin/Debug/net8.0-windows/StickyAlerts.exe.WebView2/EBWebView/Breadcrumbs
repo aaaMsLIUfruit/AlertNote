@@ -1,0 +1,157 @@
+0:00:12 Tab1 FinishNav5
+0:00:12 Tab1 PageLoad
+0:00:12 PasswordManager_LoginPassed
+0:00:12 Tab1 PageLoad
+0:00:13 Tab1 StartNav6 #renderer-user #link
+0:00:13 Tab1 FinishNav6
+0:00:13 Tab1 StartNav7 #renderer-script #link
+0:00:13 Tab1 FinishNav7
+0:00:13 Tab1 StartNav8 #renderer-script #auto_subframe
+0:00:13 Tab1 FinishNav8
+0:00:13 Tab1 PageLoad
+0:00:13 Tab1 PageLoad
+0:00:23 Widget Closed: StatusBubble
+0:00:25 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Popup
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:00 Tab1 StartNav1 #auto_toplevel
+0:00:00 Tab1 StartNav2 #typed
+0:00:00 Tab1 FinishNav1
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 FinishNav2
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 StartNav3 #renderer-script #auto_subframe
+0:00:00 Tab1 FinishNav3
+0:00:00 Tab1 PageLoad
+0:00:00 Microsoft.Autofill.Password.SignIn.NoAutofillSuggestions
+0:00:03 Autofill_SelectedSuggestion
+0:00:03 Widget Closed: PopupBaseView
+0:00:04 Widget Closed: TooltipAura
+0:00:11 Tab1 StartNav4 #renderer-user #form_submit
+0:00:11 Tab1 FinishNav4
+0:00:11 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav5
+0:00:11 Tab1 PageLoad
+0:00:11 PasswordManager_LoginPassed
+0:00:11 Tab1 PageLoad
+0:00:12 Tab1 StartNav6 #renderer-user #link
+0:00:12 Tab1 FinishNav6
+0:00:12 Tab1 StartNav7 #renderer-script #link
+0:00:12 Tab1 FinishNav7
+0:00:12 Tab1 StartNav8 #renderer-script #auto_subframe
+0:00:12 Tab1 FinishNav8
+0:00:12 Tab1 PageLoad
+0:00:12 Tab1 PageLoad
+0:00:19 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Popup
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:00 Tab1 StartNav1 #auto_toplevel
+0:00:00 Tab1 StartNav2 #typed
+0:00:00 Tab1 FinishNav1
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 FinishNav2
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 StartNav3 #renderer-script #auto_subframe
+0:00:00 Tab1 FinishNav3
+0:00:00 Tab1 PageLoad
+0:00:00 Microsoft.Autofill.Password.SignIn.NoAutofillSuggestions
+0:00:02 Autofill_SelectedSuggestion
+0:00:02 Widget Closed: PopupBaseView
+0:00:03 Widget Closed: TooltipAura
+0:00:11 Widget Closed: StatusBubble
+0:00:11 Tab1 StartNav4 #renderer-user #form_submit
+0:00:11 Tab1 FinishNav4
+0:00:11 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav5
+0:00:11 Tab1 PageLoad
+0:00:11 PasswordManager_LoginPassed
+0:00:11 Tab1 PageLoad
+0:00:13 Tab1 StartNav6 #renderer-user #link
+0:00:13 Tab1 FinishNav6
+0:00:13 Tab1 StartNav7 #renderer-script #link
+0:00:13 Tab1 FinishNav7
+0:00:13 Tab1 StartNav8 #renderer-script #auto_subframe
+0:00:13 Tab1 FinishNav8
+0:00:13 Tab1 PageLoad
+0:00:13 Tab1 PageLoad
+0:00:19 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Popup
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:00 Tab1 StartNav1 #auto_toplevel
+0:00:00 Tab1 StartNav2 #typed
+0:00:00 Tab1 FinishNav1
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 FinishNav2
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 StartNav3 #renderer-script #auto_subframe
+0:00:00 Tab1 FinishNav3
+0:00:00 Tab1 PageLoad
+0:00:00 Microsoft.Autofill.Password.SignIn.NoAutofillSuggestions
+0:00:02 Autofill_SelectedSuggestion
+0:00:02 Widget Closed: PopupBaseView
+0:00:11 Widget Closed: StatusBubble
+0:00:11 Tab1 StartNav4 #renderer-user #form_submit
+0:00:11 Tab1 FinishNav4
+0:00:11 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav5
+0:00:11 Tab1 PageLoad
+0:00:11 PasswordManager_LoginPassed
+0:00:11 Tab1 PageLoad
+0:00:13 Tab1 StartNav6 #renderer-user #link
+0:00:13 Tab1 FinishNav6
+0:00:13 Tab1 StartNav7 #renderer-script #link
+0:00:13 Tab1 FinishNav7
+0:00:13 Tab1 StartNav8 #renderer-script #auto_subframe
+0:00:13 Tab1 FinishNav8
+0:00:13 Tab1 PageLoad
+0:00:13 Tab1 PageLoad
+0:00:23 Widget Closed: StatusBubble
+0:05:48 Tab1 BeforeUnload proceed:true
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Popup
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:00 Tab1 StartNav1 #auto_toplevel
+0:00:00 Tab1 StartNav2 #typed
+0:00:00 Tab1 FinishNav1
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 FinishNav2
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 StartNav3 #renderer-script #auto_subframe
+0:00:00 Tab1 FinishNav3
+0:00:00 Tab1 PageLoad
+0:00:00 Microsoft.Autofill.Password.SignIn.NoAutofillSuggestions
+0:00:02 Autofill_SelectedSuggestion
+0:00:02 Widget Closed: PopupBaseView
+0:00:03 Widget Closed: TooltipAura
+0:00:11 Tab1 StartNav4 #renderer-user #form_submit
+0:00:11 Tab1 FinishNav4
+0:00:11 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav5
+0:00:11 Tab1 PageLoad
+0:00:11 PasswordManager_LoginPassed
+0:00:11 Tab1 PageLoad
+0:00:12 Tab1 StartNav6 #renderer-user #link
+0:00:12 Tab1 FinishNav6
+0:00:12 Tab1 StartNav7 #renderer-script #link
+0:00:12 Tab1 FinishNav7
+0:00:12 Tab1 StartNav8 #renderer-script #auto_subframe
+0:00:12 Tab1 FinishNav8
+0:00:12 Tab1 PageLoad
+0:00:12 Tab1 PageLoad
+0:00:17 Memory Pressure: Critical
+0:00:18 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications

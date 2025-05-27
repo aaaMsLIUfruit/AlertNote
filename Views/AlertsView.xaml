@@ -78,41 +78,41 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
-            <hc:ScrollViewer>
-                <hc:SimpleStackPanel>
-                    <Expander
-                        hc:BorderElement.CornerRadius="0"
-                        BorderThickness="0,0,0,1"
-                        Cursor="Hand"
-                        IsExpanded="True">
-                        <Expander.Header>
-                            <TextBlock Text="{Binding ActivedAlerts.Count, StringFormat={}进行中（共 {0} 个）}" />
-                        </Expander.Header>
-                        <ItemsControl
-                            BorderThickness="0"
-                            ItemTemplate="{DynamicResource AlertListTemplate}"
-                            ItemsSource="{Binding ActivedAlerts}"
-                            ScrollViewer.CanContentScroll="False"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                    </Expander>
-                    <Expander
-                        hc:BorderElement.CornerRadius="0"
-                        BorderThickness="0,0,0,1"
-                        Cursor="Hand"
-                        IsExpanded="False">
-                        <Expander.Header>
-                            <TextBlock Text="{Binding UnactivedAlerts.Count, StringFormat={}已到期（共 {0} 个）}" />
-                        </Expander.Header>
-                        <ItemsControl
-                            BorderThickness="0"
-                            ItemTemplate="{DynamicResource AlertListTemplate}"
-                            ItemsSource="{Binding UnactivedAlerts}"
-                            ScrollViewer.CanContentScroll="False"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                    </Expander>
-                </hc:SimpleStackPanel>
-            </hc:ScrollViewer>
-        </Border>
+    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
+        <hc:ScrollViewer>
+            <hc:SimpleStackPanel>
+                <Expander
+                    hc:BorderElement.CornerRadius="0"
+                    BorderThickness="0,0,0,1"
+                    Cursor="Hand"
+                    IsExpanded="True">
+                    <Expander.Header>
+                        <TextBlock Text="{Binding ActivedAlerts.Count, StringFormat={}进行中（共 {0} 个）}" />
+                    </Expander.Header>
+                    <ItemsControl
+                        BorderThickness="0"
+                        ItemTemplate="{DynamicResource AlertListTemplate}"
+                        ItemsSource="{Binding ActivedAlerts}"
+                        ScrollViewer.CanContentScroll="False"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </Expander>
+                <Expander
+                    hc:BorderElement.CornerRadius="0"
+                    BorderThickness="0,0,0,1"
+                    Cursor="Hand"
+                    IsExpanded="False">
+                    <Expander.Header>
+                        <TextBlock Text="{Binding UnactivedAlerts.Count, StringFormat={}已到期（共 {0} 个）}" />
+                    </Expander.Header>
+                    <ItemsControl
+                        BorderThickness="0"
+                        ItemTemplate="{DynamicResource AlertListTemplate}"
+                        ItemsSource="{Binding UnactivedAlerts}"
+                        ScrollViewer.CanContentScroll="False"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </Expander>
+            </hc:SimpleStackPanel>
+        </hc:ScrollViewer>
+    </Border>
     </Grid>
 </UserControl>
