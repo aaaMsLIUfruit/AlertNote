@@ -1,0 +1,42 @@
+<UserControl x:Class="StickyAlerts.Views.CalendarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:StickyAlerts.ViewModels"
+             Height="400" Width="600">
+    <UserControl.DataContext>
+        <vm:CalendarViewModel />
+    </UserControl.DataContext>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" CornerRadius="8" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Padding="10" Margin="0,0,10,0" Background="{DynamicResource RegionBrush}">
+            <StackPanel>
+                <TextBlock Text="日历" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="{DynamicResource PrimaryTextBrush}"/>
+                <Calendar SelectedDate="{Binding SelectedDate, Mode=TwoWay}" SelectedDatesChanged="Calendar_SelectedDatesChanged" Background="{DynamicResource RegionBrush}" Foreground="{DynamicResource PrimaryTextBrush}" />
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" CornerRadius="8" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Padding="10" Background="{DynamicResource RegionBrush}">
+            <StackPanel>
+                <TextBlock Text="{Binding SelectedDate, StringFormat=yyyy年MM月dd日 便签}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="{DynamicResource PrimaryTextBrush}"/>
+                <ItemsControl ItemsSource="{Binding FilteredAlerts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="4" Margin="0,0,0,8" Padding="8" Background="{DynamicResource SecondaryRegionBrush}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource PrimaryTextBrush}"/>
+                                    <TextBlock Text="{Binding Deadline, StringFormat=截止：{0:yyyy-MM-dd HH:mm}}"
+                                               Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12"/>
+                                    <TextBlock Text="{Binding Note}" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock Text="当天没有便签" Foreground="{DynamicResource SecondaryTextBrush}" FontStyle="Italic" FontSize="14"
+                           Visibility="{Binding FilteredAlerts.Count, Converter={StaticResource Boolean2VisibilityConverter}, ConverterParameter=False}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl> 

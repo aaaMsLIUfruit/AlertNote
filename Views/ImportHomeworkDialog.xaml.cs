@@ -1,172 +1,98 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using System.IO;
-using StickyAlerts.Services;
-using StickyAlerts.ViewModels;
-using System.Collections.Generic;
+using Microsoft.Web.WebView2.Core;
 using System.Text.RegularExpressions;
+using System.Text.Json;
+using System.Collections.Generic;
+using StickyAlerts.Services;
 
 namespace StickyAlerts.Views
 {
     public partial class ImportHomeworkDialog : Window
     {
-        private readonly HttpClientHandler _httpClientHandler = new HttpClientHandler { UseCookies = true, AllowAutoRedirect = false };
-        private readonly HttpClient _httpClient;
-        private string _loginUrl = "https://cslabcg.whu.edu.cn/login/loginproc.jsp";
-        private string _homeworkUrl = "https://cslabcg.whu.edu.cn/indexcs/simple.jsp?loginErr=0";
-
         public ImportHomeworkDialog()
         {
             InitializeComponent();
-            _httpClient = new HttpClient(_httpClientHandler);
-            Loaded += ImportHomeworkDialog_Loaded;
+            webView.Source = new System.Uri("https://cslabcg.whu.edu.cn/indexcs/simple.jsp?loginErr=0");
         }
 
-        private async void ImportHomeworkDialog_Loaded(object sender, RoutedEventArgs e)
+        private DateTime ParseDeadline(string deadlineText)
         {
-            await LoadCaptchaAsync();
+            int days = 0, hours = 0;
+            var dayMatch = Regex.Match(deadlineText, @"(\d+)天");
+            var hourMatch = Regex.Match(deadlineText, @"(\d+)小时");
+            if (dayMatch.Success) days = int.Parse(dayMatch.Groups[1].Value);
+            if (hourMatch.Success) hours = int.Parse(hourMatch.Groups[1].Value);
+            return DateTime.Now.AddDays(days).AddHours(hours);
         }
 
-        private async void RefreshCaptcha_Click(object sender, RoutedEventArgs e)
+        private async void ImportHomework_Click(object sender, RoutedEventArgs e)
         {
-            await LoadCaptchaAsync();
-        }
+            string js = @"
+                (function() {
+                    var result = [];
+                    var div = document.getElementById('activeEXPsDIV');
+                    if(div) {
+                        var links = div.querySelectorAll('a');
+                        for (var i = 0; i < links.length; i++) {
+                            var name = links[i].innerText.trim();
+                            var next = links[i].nextElementSibling;
+                            var deadline = '';
+                            if(next && next.tagName.toLowerCase() === 'span') {
+                                deadline = next.innerText.trim();
+                            }
+                            if(name && deadline) {
+                                result.push({name: name, deadline: deadline});
+                            }
+                        }
+                    }
+                    return JSON.stringify(result);
+                })();
+            ";
+            string json = await webView.ExecuteScriptAsync(js);
+            if (json.StartsWith("\"") && json.EndsWith("\""))
+                json = json.Substring(1, json.Length - 2);
+            json = json.Replace("\\\"", "\"").Replace("\\\\", "\\");
 
-        private async Task LoadCaptchaAsync()
-        {
+            List<LabInfo> labs = null;
             try
             {
-                var bytes = await _httpClient.GetByteArrayAsync("https://cslabcg.whu.edu.cn/cgjiaoyan?t=" + DateTime.Now.Ticks);
-                using var ms = new MemoryStream(bytes);
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = ms;
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-                CaptchaImage.Source = bitmap;
-            }
-            catch
-            {
-                MessageBox.Show("验证码加载失败！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private async void LoginAndImport_Click(object sender, RoutedEventArgs e)
-        {
-            string username = UsernameBox.Text.Trim();
-            string password = PasswordBox.Password.Trim();
-            string captcha = CaptchaBox.Text.Trim();
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(captcha))
-            {
-                MessageBox.Show("请填写完整信息！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            try
-            {
-                // 1. 先访问首页
-                await _httpClient.GetAsync("https://cslabcg.whu.edu.cn/indexcs/simple.jsp?loginErr=0");
-                // 2. 获取验证码图片（加时间戳防缓存）
-                var bytes = await _httpClient.GetByteArrayAsync("https://cslabcg.whu.edu.cn/cgjiaoyan?t=" + DateTime.Now.Ticks);
-                // 3. 设置常见浏览器头部（补齐所有关键Header）
-                _httpClient.DefaultRequestHeaders.Accept.Clear();
-                _httpClient.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
-                _httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-                _httpClient.DefaultRequestHeaders.AcceptLanguage.ParseAdd("zh-CN,zh;q=0.9");
-                _httpClient.DefaultRequestHeaders.CacheControl = new System.Net.Http.Headers.CacheControlHeaderValue { MaxAge = TimeSpan.Zero };
-                _httpClient.DefaultRequestHeaders.Remove("Origin");
-                _httpClient.DefaultRequestHeaders.Add("Origin", "https://cslabcg.whu.edu.cn");
-                _httpClient.DefaultRequestHeaders.Referrer = new Uri("https://cslabcg.whu.edu.cn/indexcs/simple.jsp?loginErr=0");
-                _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36");
-                // 4. 登录
-                var content = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("IndexStyle", "1"),
-                    new KeyValuePair<string, string>("stid", username),
-                    new KeyValuePair<string, string>("pwd", password),
-                    new KeyValuePair<string, string>("captchaCode", captcha)
-                });
-                var response = await _httpClient.PostAsync(_loginUrl, content);
-                var location = response.Headers.Location?.ToString() ?? "";
-                var html = await response.Content.ReadAsStringAsync();
-               
-                // 判断是否重定向（302），并根据Location判断登录结果
-                if (response.StatusCode == System.Net.HttpStatusCode.Found && response.Headers.Location != null)
-                {
-                    if (location.Contains("loginErr"))
-                    {
-                        MessageBox.Show("登录失败，请检查账号、密码和验证码！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        await LoadCaptchaAsync();
-                        return;
-                    }
-                    else
-                    {
-                        // 登录成功
-                        await ImportHomeworksAsync();
-                        MessageBox.Show("作业导入完成！", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DialogResult = true;
-                        Close();
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("登录失败，未知错误！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    await LoadCaptchaAsync();
-                }
+                labs = JsonSerializer.Deserialize<List<LabInfo>>(json);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("导入失败：" + ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("反序列化失败：" + ex.Message + "\n内容：" + json);
+                return;
             }
-        }
 
-        private async Task ImportHomeworksAsync()
-        {
-            // 1. 访问首页，提取所有课程链接
-            var homeResponse = await _httpClient.GetAsync("https://cslabcg.whu.edu.cn/indexcs/simple.jsp?loginErr=0");
-            var homeHtml = await homeResponse.Content.ReadAsStringAsync();
-            var courseMatches = Regex.Matches(homeHtml, "href=\"(courselist\\.jsp\\?courseID=\\d+)\"");
-            foreach (Match match in courseMatches)
+            if (labs == null || labs.Count == 0)
             {
-                string courseUrl = "https://cslabcg.whu.edu.cn/" + match.Groups[1].Value;
-                // 2. 访问课程页面，查找"在线作业"链接
-                var courseResponse = await _httpClient.GetAsync(courseUrl);
-                var courseHtml = await courseResponse.Content.ReadAsStringAsync();
-                var homeworkMenuMatch = Regex.Match(courseHtml, "href=\"(/includes/redirect\\.jsp\\?tab=-2)\"");
-                if (homeworkMenuMatch.Success)
-                {
-                    string homeworkMenuUrl = "https://cslabcg.whu.edu.cn" + homeworkMenuMatch.Groups[1].Value;
-                    // 3. 访问"在线作业"页面，提取作业列表
-                    var homeworkListResponse = await _httpClient.GetAsync(homeworkMenuUrl);
-                    var homeworkListHtml = await homeworkListResponse.Content.ReadAsStringAsync();
-                    var hwMatches = Regex.Matches(homeworkListHtml, "href=\"(index\\.jsp\\?courseID=\\d+&assignID=\\d+)\".*?>([^<]+作业)<", RegexOptions.Singleline);
-                    foreach (Match hw in hwMatches)
-                    {
-                        string hwUrl = "https://cslabcg.whu.edu.cn/" + hw.Groups[1].Value;
-                        string hwName = hw.Groups[2].Value.Trim();
-                        // 4. 进入作业详情页，提取截止时间
-                        var hwDetailResponse = await _httpClient.GetAsync(hwUrl);
-                        var hwDetailHtml = await hwDetailResponse.Content.ReadAsStringAsync();
-                        var deadlineMatch = Regex.Match(hwDetailHtml, "作业时间：<b>.*?</b> 至 <b>(?<deadline>[\\d\\- :]+)</b>");
-                        string deadline = deadlineMatch.Success ? deadlineMatch.Groups["deadline"].Value.Trim() : "";
-                        // 5. 生成便签
-                        if (DateTime.TryParse(deadline, out DateTime deadlineTime))
-                        {
-                            var alertService = App.Host.Services.GetService(typeof(IAlertService)) as IAlertService;
-                            alertService?.Add(hwName, string.Empty, deadlineTime, true, true, false);
-                        }
-                    }
-                }
+                MessageBox.Show("未能在当前页面提取到实验信息，请确认页面内容！", "未提取到实验", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
-        }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
+            // 生成便签
+            var alertService = App.Host.Services.GetService(typeof(IAlertService)) as IAlertService;
+            if (alertService == null)
+            {
+                MessageBox.Show("便签服务未初始化，无法生成便签！");
+                return;
+            }
+            int count = 0;
+            foreach (var lab in labs)
+            {
+                string title = lab.name;
+                string note = lab.deadline;
+                DateTime deadline = ParseDeadline(lab.deadline);
+                alertService.Add(title, note, deadline, "作业", true, true, false);
+                count++;
+            }
+            MessageBox.Show($"已为你生成{count}个便签！", "导入成功");
         }
     }
-} 
+
+    public class LabInfo
+    {
+        public string name { get; set; }
+        public string deadline { get; set; }
+    }
+}

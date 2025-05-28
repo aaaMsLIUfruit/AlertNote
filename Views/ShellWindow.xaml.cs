@@ -9,16 +9,13 @@ using System.Windows.Interop;
 
 namespace StickyAlerts.Views
 {
-    /// <summary>
-    /// ShellWindow.xaml 的交互逻辑
-    /// </summary>
+
     public partial class ShellWindow : HandyControl.Controls.Window
     {
         public ShellWindow()
         {
             InitializeComponent();
             
-            // 从依赖注入容器获取ShellViewModel
             var shellViewModel = App.Host.Services.GetRequiredService<ShellViewModel>();
             DataContext = shellViewModel;
         }
@@ -55,6 +52,20 @@ namespace StickyAlerts.Views
                 button.ContextMenu.PlacementTarget = button;
                 button.ContextMenu.IsOpen = true;
             }
+        }
+
+        private void ShowCalendarView_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new Window
+            {
+                Title = "日历视图",
+                Content = new StickyAlerts.Views.CalendarView(),
+                Width = 600,
+                Height = 400,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this
+            };
+            win.ShowDialog();
         }
     }
 }

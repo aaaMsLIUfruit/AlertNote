@@ -280,7 +280,11 @@ namespace StickyAlerts.Services
             Alerts.Add(vm);
             SortByDeadlineAndActiveState(Alerts);
             AddAlertWindow(vm);
+<<<<<<< HEAD
             SaveToDatabase();
+=======
+            Save();
+>>>>>>> a0d65350b8fea8d7bff1afd26db4b1fbff3d5f69
             Align();
         }
 

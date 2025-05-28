@@ -63,8 +63,8 @@ namespace StickyAlerts.ViewModels
                 Exit();
             }
             else
-            {
-                _shellService.HideShell();
+        {
+            _shellService.HideShell();
             }
         }
 

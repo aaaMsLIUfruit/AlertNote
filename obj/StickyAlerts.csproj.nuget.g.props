@@ -17,6 +17,11 @@
     <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\8.0.0\buildTransitive\net6.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\8.0.0\buildTransitive\net6.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+<<<<<<< HEAD
     <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\韩欣星\.nuget\packages\handycontrol\3.5.1</PkgHandyControl>
+=======
+    <PkgMicrosoft_Web_WebView2 Condition=" '$(PkgMicrosoft_Web_WebView2)' == '' ">C:\Users\Zijun Liu\.nuget\packages\microsoft.web.webview2\1.0.3240.44</PkgMicrosoft_Web_WebView2>
+    <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\Zijun Liu\.nuget\packages\handycontrol\3.5.1</PkgHandyControl>
+>>>>>>> a0d65350b8fea8d7bff1afd26db4b1fbff3d5f69
   </PropertyGroup>
 </Project>

@@ -68,10 +68,11 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    <Button
+                <Button
                         Command="{Binding SwitchToSettingsViewCommand}"
                         Content="&#xE713;"
                         Style="{DynamicResource ControlButtonStyle}" />
+                    <Button Content="&#xE787;" Click="ShowCalendarView_Click" Style="{StaticResource ControlButtonStyle}" Margin="5,0,0,0"/>
                 </StackPanel>
             </hc:TransitioningContentControl>
             <!--  返回按钮  -->
@@ -91,7 +92,7 @@
                 Background="Transparent"
                 FontSize="16"
                 IsHitTestVisible="False"
-                Text="{Binding Title}" />
+                Text="" />
             <!--  设置与关闭按钮  -->
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <!--  最小化按钮  -->
