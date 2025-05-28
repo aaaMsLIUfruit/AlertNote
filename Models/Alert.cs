@@ -12,6 +12,7 @@ namespace StickyAlerts.Models
     public class Alert
     {
         public Guid Id { get; set; }
+        public Guid Username { get; set; }
         public string? Title { get; set; }
         public string? Note { get; set; }
         public DateTime Deadline { get; set; }

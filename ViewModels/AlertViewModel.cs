@@ -61,6 +61,7 @@ namespace StickyAlerts.ViewModels
         [ObservableProperty]
         private string _theme = string.Empty;
 
+
         partial void OnDeadlineChanged(DateTime oldValue, DateTime newValue)
         {
             // 倒计时变化后需要处理 AlertsView 的"进行中"与"已过时"列表的更新
@@ -69,7 +70,6 @@ namespace StickyAlerts.ViewModels
 
         partial void OnAlertVisibleChanged(bool oldValue, bool newValue)
         {
-            return;
             var alertService = App.Host.Services.GetRequiredService<IAlertService>();
             alertService.Align();
         }
@@ -95,6 +95,21 @@ namespace StickyAlerts.ViewModels
             Topmost = alert.Topmost;
             Theme = alert.Theme;
         }
+
+        [RelayCommand]
+        public void CreateNewAlert()
+        {
+            try
+            {
+                var alertService = App.Host.Services.GetRequiredService<IAlertService>();
+                alertService.Add();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"创建便签失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         [RelayCommand]
         public void ShowShell()

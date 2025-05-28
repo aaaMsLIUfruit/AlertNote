@@ -9,6 +9,7 @@ using StickyAlerts.ViewModels;
 using StickyAlerts.Views;
 using System;
 using System.Windows;
+using Microsoft.Data.Sqlite;
 
 namespace StickyAlerts
 {
@@ -41,7 +42,7 @@ namespace StickyAlerts
                     services.AddSingleton<IAlertService, AlertService>();
                     services.AddSingleton<IShellService, ShellService>();
                     services.AddSingleton<ISystemThemeService, SystemThemeService>();
-
+                    services.AddSingleton<IAuthService, AuthService>();
                     // 注册视图模型
                     services.AddTransient<AlertsViewModel>();
                     services.AddTransient<SettingsViewModel>();
@@ -62,6 +63,38 @@ namespace StickyAlerts
             loginWindow.Show();
         }
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // 初始化数据库（确保DataAccess命名空间正确）
+            InitializeDatabase();
+
+            // 其他启动逻辑（如主题加载等）
+
+        }
+
+        private void InitializeDatabase()
+        {
+            try
+            {
+                // 这会自动创建数据库文件和表结构
+                using (var connection = DataAccess.DatabaseHelper.GetConnection())
+                {
+                    // 可选的测试查询（验证连接）
+                    var command = connection.CreateCommand();
+                    command.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
+                    var tables = command.ExecuteScalar();
+                    System.Diagnostics.Debug.WriteLine($"数据库初始化成功，检测到表：{tables}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"数据库初始化失败：{ex.Message}", "严重错误",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                Shutdown(); // 终止应用
+            }
+        }
         protected override async void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
