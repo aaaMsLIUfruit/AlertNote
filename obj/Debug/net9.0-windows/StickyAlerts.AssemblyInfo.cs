@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StickyAlerts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f66a717309121b4ea56ace5d318624f586b526e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68b99b0e0eb297b6dbb47a865ac103fb96fbe7eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("StickyAlerts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StickyAlerts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
